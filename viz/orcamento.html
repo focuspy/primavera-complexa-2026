@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Orçamento – Primavera Complexa 2026</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        margin: 20px;
+        background: #f7f7f7;
+      }
+      #chart-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        padding: 20px 24px 10px 24px;
+      }
+      h2 {
+        margin-top: 0;
+        font-size: 1.4rem;
+      }
+      p.desc {
+        color: #555;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart-container">
+      <h2>Orçamento por categoria – Exercício "Primavera Complexa 2026"</h2>
+      <p class="desc">
+        Passe o rato sobre as barras para ver os valores exactos. Pode fazer
+        zoom com o rato e exportar a figura em PNG no menu do canto superior
+        direito.
+      </p>
+      <div id="chart" style="width: 100%; height: 480px"></div>
+    </div>
+
+    <script>
+      const categorias = [
+        "Tecnologia de simulação avançada",
+        "Formação especializada",
+        "Comunicação pública",
+        "Logística operacional",
+        "Análise e melhoria contínua",
+      ];
+      const valores = [109080, 54546, 54546, 61350, 27228];
+
+      const data = [
+        {
+          x: categorias,
+          y: valores,
+          type: "bar",
+          marker: {
+            color: ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"],
+            line: { color: "#333", width: 0.5 },
+          },
+          text: valores.map((v) => v.toLocaleString("pt-PT") + " €"),
+          textposition: "auto",
+          hovertemplate: "<b>%{x}</b><br>Valor: %{y:.0f} €<extra></extra>",
+        },
+      ];
+
+      const layout = {
+        yaxis: {
+          title: "Valor (€)",
+          tickformat: ",.0f",
+          gridcolor: "#eee",
+        },
+        xaxis: {
+          tickangle: -20,
+        },
+        margin: { t: 50, l: 80, r: 30, b: 110 },
+        title: {
+          text: "Distribuição do orçamento por categoria",
+          font: { size: 18 },
+        },
+        plot_bgcolor: "#ffffff",
+        paper_bgcolor: "#ffffff",
+      };
+
+      const config = {
+        responsive: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: ["lasso2d", "select2d"],
+      };
+
+      Plotly.newPlot("chart", data, layout, config);
+    </script>
+  </body>
+</html>

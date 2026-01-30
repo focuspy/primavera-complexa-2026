@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Financiamento – Primavera Complexa 2026</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        margin: 20px;
+        background: #f7f7f7;
+      }
+      #chart-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        padding: 20px 24px 10px 24px;
+      }
+      h2 {
+        margin-top: 0;
+        font-size: 1.4rem;
+      }
+      p.desc {
+        color: #555;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart-container">
+      <h2>Fontes de financiamento – Exercício "Primavera Complexa 2026"</h2>
+      <p class="desc">
+        O gráfico mostra a repartição das fontes de financiamento. Passe o rato
+        para ver valores em euros e percentagens.
+      </p>
+      <div id="chart" style="width: 100%; height: 480px"></div>
+    </div>
+
+    <script>
+      const fontes = [
+        "Mecanismo de Proteção Civil da UE (40%)",
+        "Orçamento do Estado – Programa Clima (27%)",
+        "Fundo de Coesão Territorial (18%)",
+        "Parcerias institucionais (15%)",
+      ];
+      const valores = [122700, 82823, 55215, 45012];
+
+      const total = valores.reduce((a, b) => a + b, 0);
+
+      const data = [
+        {
+          labels: fontes,
+          values: valores,
+          type: "pie",
+          hole: 0.45,
+          marker: {
+            colors: ["#264653", "#2a9d8f", "#e9c46a", "#f4a261"],
+            line: { color: "#ffffff", width: 2 },
+          },
+          textinfo: "percent",
+          textposition: "inside",
+          hovertemplate:
+            "<b>%{label}</b><br>" +
+            "Valor: %{value:.0f} €<br>" +
+            "Percentagem: %{percent}<extra></extra>",
+          sort: false,
+        },
+      ];
+
+      const layout = {
+        margin: { t: 50, l: 20, r: 20, b: 40 },
+        title: {
+          text:
+            "Distribuição das fontes de financiamento (Total: " +
+            total.toLocaleString("pt-PT") +
+            " €)",
+          font: { size: 18 },
+        },
+        showlegend: true,
+        legend: {
+          orientation: "h",
+          y: -0.1,
+        },
+        plot_bgcolor: "#ffffff",
+        paper_bgcolor: "#ffffff",
+      };
+
+      const config = {
+        responsive: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: ["lasso2d", "select2d"],
+      };
+
+      Plotly.newPlot("chart", data, layout, config);
+    </script>
+  </body>
+</html>
